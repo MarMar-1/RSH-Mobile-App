@@ -17,6 +17,7 @@ a:hover {
   text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #fff;
   border: 1px solid #fff;
+  width: 200px;
 }
 
 
