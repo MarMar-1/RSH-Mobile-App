@@ -30,10 +30,11 @@
     <script src="bootstrap-3.3.6-dist/assets/js/ie-emulation-modes-warning.js"></script>
 
     <script>
-    $(function () {
-      $('#container').highcharts({
+    $(document).ready(function() {
+      var options = {
           chart: {
-            type: 'area'
+              renderTo: 'container',
+              type: 'area'
           },
           title: {
               text: 'Electricity Usage',
@@ -41,8 +42,13 @@
               x: -20 //center
           },
           xAxis: {
-              categories: ['March 6', 'March 7', 'March 8', 'March 9', 'March 10', 'March 11',
-                  'March 12', 'March 13']
+            categories: ['March 6', 'March 7', 'March 8', 'March 9', 'March 10', 'March 11',
+                'March 12', 'March 13'],
+            labels: {
+              style: {
+                  fontSize:'15px'
+              }
+            }
           },
           yAxis: {
               title: {
@@ -52,7 +58,12 @@
                   value: 0,
                   width: 1,
                   color: '#808080'
-              }]
+              }],
+            labels: {
+              style: {
+                  fontSize:'15px'
+              }
+            }
           },
           tooltip: {
               valueSuffix: 'kWh'
@@ -63,25 +74,13 @@
               verticalAlign: 'middle',
               borderWidth: 0
           },
-          series: [
-          {
-            name: 'National Average',
-            data:[30,30,30,30,30,30,30,30],
-            color: '#878787'
-          },
-          {
-              name: 'Usage',
-              data: [16.0, 15.9, 17.2, 14.5, 18.2, 21.5, 25.2, 26.5],
-              color: '#ff9999'
-          }, {
-              name: 'Production',
-              data: [0.2, 0.8, 5.7, 11.3, 13.0, 15.0, 12.8, 12.1],
-              color: '#eae440'
-          }, {
-              name: 'Net',
-              data: [15.8, 15.1, 11.5, 3.2, 5.2, 6.5, 12.4, 14.4],
-              color: '#408000'
-          }]
+          series: [{}]
+      };
+      
+      var url =  "http://url-to-your-remote-server/jsonp.php?callback=?";
+      $.getJSON(url,  function(data) {
+          options.series[0].data = data;
+          var chart = new Highcharts.Chart(options);
       });
     });
     </script>
